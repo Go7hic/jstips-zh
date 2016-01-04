@@ -1,7 +1,10 @@
+> 提示：这是我对这个 https://github.com/loverajoel/jstips 项目的翻译版
+
 ![header](https://raw.githubusercontent.com/loverajoel/jstips/master/resources/jstips-header-blog.gif)
 
-# Introducing Javascript Tips
-> New year, new project. **A JS tip per day!**
+# JavaScript 技巧介绍
+
+> 新年新项目，每天介绍一个 JS 小技巧
 
 With great excitement, I introduce short and useful Javascript tips per day that will allow you to improve your code writing. With less than 2 minutes each day, you will be able to read about performance, frameworks, conventions, hacks, interview questions and all the items that future of this awesome language holds for us.
 
@@ -16,7 +19,7 @@ Any improvements or suggestions are more than welcome!
 To get updates, watch the repo and follow the [Twitter account](https://twitter.com/tips_js), only one tweet will be sent per day. It is a deal!
 > Don't forget Star the repo, this will help to diffuse the project!
 
-# Tips list
+# 技巧列表
 
 ## #03 - Improve Nested Conditionals
 > 01/03/2016 by [AlbertoFuente](https://github.com/AlbertoFuente)
@@ -167,7 +170,7 @@ In this case the `$digest` method starts the `$digest` cycle for the current sco
 - If you are using >AngularJS 1.2.X, use `$evalAsync` is a core method that will evaluate the expression during the current cycle or the next. This can improve your application's performance.
 
 
-## #0 - Insert item inside an Array
+## #0 - 在数组中插入一个值
 > 12/29/2015
 
 Insert an item into an existing array is a daily common task. You can add elements to the end of an array using push, to the beginning using unshift, or the middle using splice.
@@ -205,3 +208,5 @@ I tried to run these tests in various Browsers and OS and the results were simil
 
 ### License
 [![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+
+
