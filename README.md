@@ -741,7 +741,7 @@ printUpperCase(["cactus", "bear", "potato"]);
 - `undefined`不是一个有效的JSON而`null`是
 - `undefined`的类型(typeof)是`undefined`
 - `null`的类型(typeof)是`object`. [为什么?](http://www.2ality.com/2013/10/typeof-null.html)
-- 它们都是基本来兴
+- 它们都是基本类型
 - 他们都是[falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy)
   (`Boolean(undefined) // false`, `Boolean(null) // false`)
 - 你可以这样判断一个变量是否是[undefined](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)
