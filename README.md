@@ -893,7 +893,6 @@ switch(true) {
 }
 ```
 
-
 但是我们应该时刻注意避免太多判断在一个条件里，尽量少的使用`switch`，考虑最有效率的方法：借助`object`。
 
 ```javascript
@@ -916,73 +915,62 @@ if (color in colorObj) {
 
 ## #02 - ReactJs - Keys in children components are important([原文](https://github.com/loverajoel/jstips#02---reactjs---keys-in-children-components-are-important))
 
-（译者注：本人对ReactJs了解不多，就不翻译了，免得误导大家 欢迎PR）
-
 > 2016-01-02  by [@loverajoel](https://twitter.com/loverajoel)
 
+key必须传递给从数组中动态创建的所有组件的一个值。它是一个唯一且固定的id，用来识别DOM中的每个组件，也可以让我们区别它是否是同一个组件。使用key可以确保子容器是可保存而且不需要重复创建的，还可以防止奇怪的事情发生。
 
-The [key](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children) is an attribute that you must pass to all components created dynamically from an array. It's unique and constant id that React use for identify each component in the DOM and know that it's a different component and not the same one. Using keys will ensure that the child component is preserved and not recreated and prevent that weird things happens.
+> key跟效率不是很相关，它更与身份有关系（这间接的使效率更好）。随机的赋值或改变值将不能识别身份Paul O’Shannessy
+使用对象存在的的唯一值。
+在父组件定义key,而不是子组件。
 
-> Key is not really about performance, it's more about identity (which in turn leads to better performance). randomly assigned and changing values are not identity [Paul O’Shannessy](https://github.com/facebook/react/issues/1342#issuecomment-39230939)
+```
+//bad
+...
+render() {
+    <div key=></div>
+}
+...
 
-- Use an existing unique value of the object.
-- Define the keys in the parent components, not in child components
+//good
+<MyComponent key=/>
+```
 
-	```javascript
-	//bad
-	...
-	render() {
-		<div key={{item.key}}>{{item.name}}</div>
-	}
-	...
+- 使用数组索引是一个坏习惯
+- random() 不会起作用
 
-	//good
-	<MyComponent key={{item.key}}/>
-	```
-- [Using array index is a bad practice.](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318#.76co046o9)
-- `random()` will not work
-
-	```javascript
-	//bad
-	<MyComponent key={{Math.random()}}/>
-	```
-
-- You can create your own unique id, be sure that the method be fast and attach it to your object.
-- When the amount of child are big or involve expensive components, use keys has performance improvements.
-- [You must provide the key attribute for all children of ReactCSSTransitionGroup.](http://docs.reactjs-china.com/react/docs/animation.html)
-
+```
+//bad
+<MyComponent key=/>
+```
+你可以创建以自己的唯一id。确定这个方法运行速度够快，把它附着到你的对象上。
+当子组件的数量很大或者包含重量级的组件时，使用key来提高性能。
+你必须提供key值给ReactCSSTransitionGroup的每个子组件
 
 ## #1 - AngularJs: `$digest` vs `$apply`([原文](https://github.com/loverajoel/jstips#1---angularjs-digest-vs-apply))
 
-（译者注：本人对AngularJs了解不多，就不翻译了，免得误导大家 欢迎PR）
-
 > 2016-01-01  by [@loverajoel](https://twitter.com/loverajoel)
 
-One of the most appreciated features of AngularJs is the two way data binding. In order to make this work AngularJs evaluates the changes between the model and the view through cycles(`$digest`). You need to understand this concept in order to understand how the framework works under the hood.
+AngularJs最令人欣赏的特性之一就是双向数据绑定。AngularJs通过循环($digest)检查model和view的变化实现此功能。想要理解框架底层的运行机制你需要理解这个概念。
+当一个事件被触发时，Angular触发每个watcher. 这是我们已知的$digest循环。有时你需要强制手动运行一个新的循环，而且因为这是最影响性能的一方面，你必须选择一个正确的选项。
 
-Angular evaluates each watcher whenever one event is fired, this is the known `$digest` cycle.
-Sometimes you have to force to run a new cycle manually and you must choose the correct option because this phase is one of the most influential in terms of performance.
+#### $apply
+这个核心方法可以让你显式启动digest循环。这意味着所有的watcher将会被检测；整个应用启动$digest loop。在内部在会执行一个可选的方法之后，会调用$rootScope.$digest();.
 
-### `$apply`
-This core method lets you to start the digestion cycle explicitly, that means that all watchers are checked, the entire application starts the `$digest loop`. Internally after execute an optional function parameter, call internally to `$rootScope.$digest();`.
+#### $digest
+这种情况下$digest方法在当前作用域和它的子项启动$digest循环。你需要注意他的父作用域将不会被检测也不会被影响。
+推荐
 
-### `$digest`
-In this case the `$digest` method starts the `$digest` cycle for the current scope and its children. You should notice that the parents scopes will not be checked
- and not be affected.
+- 仅当浏览器DOM事件在AngularJS之外被出发时使用$apply或$digest。
+- 给$apply传递方法，它将包含错误处理机制而且允许整合在digest循环里的变化。
+```
+$scope.$apply(() => {
+    $scope.tip = 'Javascript Tip';
+});
+```
 
-### Recommendations
-- Use `$apply` or `$digest` only when browser DOM events have triggered outside of AngularJS.
-- Pass a function expression to `$apply`, this have a error handling mechanism and allow integrate changes in the digest cycle
-
-	```javascript
-	$scope.$apply(() => {
-		$scope.tip = 'Javascript Tip';
-	});
-	```
-
-- If only needs update the current scope or its children use `$digest`, and prevent a new digest cycle for the whole application. The performance benefit it's self evident
-- `$apply()` is hard process for the machine and can lead to performance issues when having a lot of binding.
-- If you are using >AngularJS 1.2.X, use `$evalAsync` is a core method that will evaluate the expression during the current cycle or the next. This can improve your application's performance.
+- 如果你只需要更新当前的作用域或者它的子项的话，使用$digest，而且要防止在整个应用里运行新的digest循环。这在性能上的好处是显而易见的。
+- $apply()对机器来说是一个困难的处理过程，在绑定过多的时候可能会引发性能问题。
+如果你正使用>AngularJS 1.2.X版本，使用$evalAsync, 这个方法将在当前循环或下一个循环执行表达式，这能提高你的应用的性能。
 
 
 
