@@ -19,7 +19,7 @@
 想要获取更新, watch 本仓库并关注[Twitter 账户](https://twitter.com/tips_js),每天只有一条推文发布，这永远不会变!
 > 不要忘了Star我们的仓库,这将帮助我们提高此项目!
 
-# 小知识列表
+# 技巧列表
 
 ## #23 - 转换为数字的更快方法([原文](https://github.com/loverajoel/jstips#23---converting-to-number-fast-way))
 
