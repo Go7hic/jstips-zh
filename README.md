@@ -21,6 +21,23 @@
 
 # 技巧列表
 
+## #24 - 使用 === 而不是 ==
+== (或者 !=) 操作在需要的情况下自动进行了类型转换。=== (或 !==)操作不会执行任何转换。===在比较值和类型时，可以说比==更快
+
+```
+[10] ==  10      // 为 true
+[10] === 10      // 为 false
+
+'10' ==  10      // 为 true
+'10' === 10      // 为 false
+
+ []  ==  0       // 为 true
+ []  === 0       // 为 false
+
+ ''  ==  false   // 为 true 但 true == "a" 为false
+ ''  === false   // 为 false 
+ ```
+
 ## #23 - 转换为数字的更快方法([原文](https://github.com/loverajoel/jstips#23---converting-to-number-fast-way))
 
 > 2016-01-23 by [@sonnyt](http://twitter.com/sonnyt)
