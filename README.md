@@ -49,7 +49,11 @@ if(test){
 
 ```
 ( test && isTrue() );  // Test is true
+```
+
 使用逻辑或 - ||.
+
+```
 test = false;
 if(!test){
   isFalse();    // Test is false.
