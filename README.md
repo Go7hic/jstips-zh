@@ -21,6 +21,74 @@
 
 # 技巧列表
 
+## #27 JS 中的短路求值
+
+短路求值是说, 只有当第一个运算数的值无法确定逻辑运算的结果时，才对第二个运算数进行求值：当AND(&&)的第一个运算数的值为false时，其结果必定为false；当OR(||)的第一个运算数为true时，最后结果必定为true。
+对于下面的test条件和isTrue与isFalse方法
+
+```
+var test = true;
+var isTrue = function(){
+  console.log('Test is true.');
+};
+var isFalse = function(){
+  console.log('Test is false.');
+};
+```
+
+使用逻辑与 - &&.
+
+```
+// 普通的if语句
+if(test){
+  isTrue();    // Test is true
+}
+```
+
+// 上面的语句可以使用 '&&' 写为：
+
+```
+( test && isTrue() );  // Test is true
+使用逻辑或 - ||.
+test = false;
+if(!test){
+  isFalse();    // Test is false.
+}
+
+( test || isFalse());  // Test is false.
+```
+
+逻辑或可以用来给参数设置默认值。
+
+```
+function theSameOldFoo(name){
+    name = name || 'Bar' ;
+    console.log("My best friend's name is " + name);
+}
+theSameOldFoo();  // My best friend's name is Bar
+theSameOldFoo('Bhaskar');  // My best friend's name is Bhaskar
+```
+
+逻辑与可以用来避免调用undefined参数的属性时报错 例如:-
+```
+var dog = {
+  bark: function(){
+     console.log('Woof Woof');
+   }
+};
+```
+
+```
+// 调用 dog.bark();
+dog.bark(); // Woof Woof.
+```
+// 但是当dog未定义时，dog.bark() 将会抛出"Cannot read property 'bark' of undefined." 错误
+// 防止这种情况，我们可以使用 &&.
+
+```
+dog&&dog.bark();   // This will only call dog.bark(), if dog is defined.
+```
+
 ## #26 过滤并排序字符串列表
 你可能有一个很多名字组成的列表，需要过滤掉重复的名字并按字母表将其排序。
 在我们的例子里准备用不同版本语言的JavaScript 保留字的列表，但是你能发现，有很多重复的关键字而且它们并没有按字母表顺序排列。所以这是一个完美的字符串列表(数组)来测试我们的JavaScript小知识。
