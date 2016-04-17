@@ -1,3 +1,7 @@
+PPPS：官网有中文版的了 http://www.jstips.co/zh_CN/，这个项目就不继续了
+
+
+
 > 提示：这是我对这个 https://github.com/loverajoel/jstips 项目的翻译版
 
 ![header](https://raw.githubusercontent.com/loverajoel/jstips/master/resources/jstips-header-blog.gif)
